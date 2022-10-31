@@ -5,7 +5,7 @@ using Mongo.Services.ProductAPI.Repository;
 
 namespace Mongo.Services.ProductAPI.Controllers
 {
-    [Route("api/product")]
+    [Route("api/products")]
     [ApiController]
     public class ProductAPIController : ControllerBase
     {
