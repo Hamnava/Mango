@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add SQl server configuration
 builder.Services.AddDbContext<ApplicationDbContext>(option =>
 {
-    option.UseSqlServer(builder.Configuration.GetConnectionString("DegaultConnection"));
+    option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 
