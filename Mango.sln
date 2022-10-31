@@ -7,9 +7,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Front_End", "Front_End", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{1A3F2508-70D1-4D1C-A043-C647763CB68D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mango.Web", "Front_End\Mango.Web\Mango.Web.csproj", "{51C16968-8385-4D52-AC39-C1DD540C1028}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mango.Web", "Front_End\Mango.Web\Mango.Web.csproj", "{51C16968-8385-4D52-AC39-C1DD540C1028}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mongo.Services.ProductAPI", "Services\Mongo.Services.ProductAPI\Mongo.Services.ProductAPI.csproj", "{1B7166B3-9183-4E47-9F39-F28AF044EB3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mongo.Services.ProductAPI", "Services\Mongo.Services.ProductAPI\Mongo.Services.ProductAPI.csproj", "{1B7166B3-9183-4E47-9F39-F28AF044EB3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mango.Services.Identity", "Services\Mango.Services.Identity\Mango.Services.Identity.csproj", "{D8719DD4-004B-46B9-AD0A-BAFCEE29EAF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +27,10 @@ Global
 		{1B7166B3-9183-4E47-9F39-F28AF044EB3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B7166B3-9183-4E47-9F39-F28AF044EB3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B7166B3-9183-4E47-9F39-F28AF044EB3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8719DD4-004B-46B9-AD0A-BAFCEE29EAF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8719DD4-004B-46B9-AD0A-BAFCEE29EAF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8719DD4-004B-46B9-AD0A-BAFCEE29EAF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8719DD4-004B-46B9-AD0A-BAFCEE29EAF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +38,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{51C16968-8385-4D52-AC39-C1DD540C1028} = {69679711-4AE2-49F7-92C5-6E734A4F5E02}
 		{1B7166B3-9183-4E47-9F39-F28AF044EB3A} = {1A3F2508-70D1-4D1C-A043-C647763CB68D}
+		{D8719DD4-004B-46B9-AD0A-BAFCEE29EAF0} = {1A3F2508-70D1-4D1C-A043-C647763CB68D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AECDBA17-F01D-42AD-B2A6-D81124650F4E}
