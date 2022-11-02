@@ -2,6 +2,7 @@
 using Mango.Web.Services.IServices;
 using Mongo.Web.Models;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -29,6 +30,11 @@ namespace Mango.Web.Services
                 message.RequestUri = new Uri(apiRequest.Url);
                 client.DefaultRequestHeaders.Clear();
 
+                // add access token to the request header
+                if (!string.IsNullOrEmpty(apiRequest.AccessToken))
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiRequest.AccessToken);
+                }
                 if (apiRequest.Data != null)
                 {
                     message.Content = new StringContent(JsonConvert.SerializeObject(apiRequest.Data),
