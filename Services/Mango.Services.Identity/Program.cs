@@ -1,5 +1,6 @@
 using Mango.Services.Identity;
 using Mango.Services.Identity.DbContexts;
+using Mango.Services.Identity.Initializer;
 using Mango.Services.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +30,9 @@ var Idbuilder = builder.Services.AddIdentityServer(options =>
 .AddAspNetIdentity<ApplicationUser>();
 
 
+builder.Services.AddScoped<IDbInitializer, DbInitializer>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -40,6 +44,9 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+SeedDatabase();
+
 app.UseStaticFiles();
 
 app.UseIdentityServer();
@@ -52,3 +59,12 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+void SeedDatabase() 
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+        dbInitializer.Initialize();
+    }
+}
