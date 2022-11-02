@@ -1,7 +1,7 @@
 ﻿@using Mongo.Web.Models
 @model ProductDto
 
-<form>
+<form method="post">
    <input asp-for="@Model.ProductId" hidden/>
     <div class=" pt-4">
         <div class="card container" style="border:1px solid #808080;">
@@ -30,7 +30,8 @@
                                 </div>
                             </div>
                             <div class="row px-4">
-                                <input class="form-control" />
+                                <input asp-for="Count" class="form-control" />
+                                <span asp-validation-for="Count" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
