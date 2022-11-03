@@ -1,4 +1,4 @@
-﻿namespace Mongo.Web.Models
+﻿namespace Mango.ShoppingCartAPI.Models.Dto
 {
     public class ProductDto
     {
@@ -8,6 +8,5 @@
         public string Description { get; set; }
         public string CategoryName { get; set; }
         public string ImageUrl { get; set; }
-        public int Count { get; set; }
     }
 }
