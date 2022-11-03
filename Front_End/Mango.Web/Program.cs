@@ -8,10 +8,17 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// for HttpClientFactory service
 builder.Services.AddHttpClient<IProductServices, ProductServices>();
-SD.ProductAPIBase = builder.Configuration["ServiceUrls:ProductAPI"];
+builder.Services.AddHttpClient<ICartService, CartService>();
 
+// API routing configuration
+SD.ProductAPIBase = builder.Configuration["ServiceUrls:ProductAPI"];
+SD.ShoppingCartAPIBase = builder.Configuration["ServiceUrls:ShoppingCartAPI"];
+
+// Scope service
 builder.Services.AddScoped<IProductServices, ProductServices>();
+builder.Services.AddScoped<ICartService, CartService>();
 
 builder.Services.AddAuthentication(options=>
 {
@@ -26,8 +33,8 @@ builder.Services.AddAuthentication(options=>
                     options.ClientId = "mango";
                     options.ClientSecret = "secret";
                     options.ResponseType = "code";
-                    //options.ClaimActions.MapJsonKey("role", "role", "role");
-                   // options.ClaimActions.MapJsonKey("sub", "sub", "sub");
+                    options.ClaimActions.MapJsonKey("role", "role", "role");
+                    options.ClaimActions.MapJsonKey("sub", "sub", "sub");
                     options.TokenValidationParameters.NameClaimType = "name";
                     options.TokenValidationParameters.RoleClaimType = "role";
                     options.Scope.Add("mango");
