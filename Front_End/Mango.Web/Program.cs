@@ -11,14 +11,17 @@ builder.Services.AddControllersWithViews();
 // for HttpClientFactory service
 builder.Services.AddHttpClient<IProductServices, ProductServices>();
 builder.Services.AddHttpClient<ICartService, CartService>();
+builder.Services.AddHttpClient<ICouponService, CouponService>();
 
 // API routing configuration
 SD.ProductAPIBase = builder.Configuration["ServiceUrls:ProductAPI"];
 SD.ShoppingCartAPIBase = builder.Configuration["ServiceUrls:ShoppingCartAPI"];
+SD.CouponAPIBase = builder.Configuration["ServiceUrls:CouponAPI"];
 
 // Scope service
 builder.Services.AddScoped<IProductServices, ProductServices>();
 builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<ICouponService, CouponService>();
 
 builder.Services.AddAuthentication(options=>
 {

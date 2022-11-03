@@ -11,11 +11,11 @@ namespace Mango.Web.Controllers
     {
             private readonly IProductServices _productService;
             private readonly ICartService _cartService;
-            //private readonly ICouponService _couponService;
-            public CartController(IProductServices productService, ICartService cartService)
+            private readonly ICouponService _couponService;
+            public CartController(IProductServices productService, ICartService cartService, ICouponService couponService)
             {
                 _productService = productService;
-                //_couponService = couponService;
+                _couponService = couponService;
                 _cartService = cartService;
             }
             public async Task<IActionResult> CartIndex()
@@ -29,13 +29,13 @@ namespace Mango.Web.Controllers
             {
                 var userId = User.Claims.Where(u => u.Type == "sub")?.FirstOrDefault()?.Value;
                 var accessToken = await HttpContext.GetTokenAsync("access_token");
-                //var response = await _cartService.ApplyCoupon<ResponseDto>(cartDto, accessToken);
+                var response = await _cartService.ApplyCoupon<ResponseDto>(cartDto, accessToken);
 
-                //if (response != null && response.IsSuccess)
-                //{
-                //    return RedirectToAction(nameof(CartIndex));
-                //}
-                return View();
+                if (response != null && response.IsSuccess)
+                {
+                    return RedirectToAction(nameof(CartIndex));
+                }
+            return View();
             }
 
             [HttpPost]
@@ -44,13 +44,13 @@ namespace Mango.Web.Controllers
             {
                 var userId = User.Claims.Where(u => u.Type == "sub")?.FirstOrDefault()?.Value;
                 var accessToken = await HttpContext.GetTokenAsync("access_token");
-                //var response = await _cartService.RemoveCoupon<ResponseDto>(cartDto.CartHeader.UserId, accessToken);
+                var response = await _cartService.RemoveCoupon<ResponseDto>(cartDto.CartHeader.UserId, accessToken);
 
-                //if (response != null && response.IsSuccess)
-                //{
-                //    return RedirectToAction(nameof(CartIndex));
-                //}
-                return View();
+                if (response != null && response.IsSuccess)
+                {
+                    return RedirectToAction(nameof(CartIndex));
+                }
+            return View();
             }
 
             public async Task<IActionResult> Remove(int cartDetailsId)
@@ -78,14 +78,14 @@ namespace Mango.Web.Controllers
             {
                 try
                 {
-                    var accessToken = await HttpContext.GetTokenAsync("access_token");
-                    //var response = await _cartService.Checkout<ResponseDto>(cartDto.CartHeader, accessToken);
-                    //if (!response.IsSuccess)
-                    //{
-                    //    TempData["Error"] = response.DisplayMessage;
-                    //    return RedirectToAction(nameof(Checkout));
-                    //}
-                    return RedirectToAction(nameof(Confirmation));
+                //    var accessToken = await HttpContext.GetTokenAsync("access_token");
+                //    var response = await _cartService.Checkout<ResponseDto>(cartDto.CartHeader, accessToken);
+                //    if (!response.IsSuccess)
+                //    {
+                //        TempData["Error"] = response.DisplayMessage;
+                //        return RedirectToAction(nameof(Checkout));
+                //    }
+                return RedirectToAction(nameof(Confirmation));
                 }
                 catch (Exception e)
                 {
@@ -111,22 +111,22 @@ namespace Mango.Web.Controllers
 
                 if (cartDto.CartHeader != null)
                 {
-                    //if (!string.IsNullOrEmpty(cartDto.CartHeader.CouponCode))
-                    //{
-                    //    var coupon = await _couponService.GetCoupon<ResponseDto>(cartDto.CartHeader.CouponCode, accessToken);
-                    //    if (coupon != null && coupon.IsSuccess)
-                    //    {
-                    //        var couponObj = JsonConvert.DeserializeObject<CouponDto>(Convert.ToString(coupon.Result));
-                    //        cartDto.CartHeader.DiscountTotal = couponObj.DiscountAmount;
-                    //    }
-                    //}
+                if (!string.IsNullOrEmpty(cartDto.CartHeader.CouponCode))
+                {
+                    var coupon = await _couponService.GetCoupon<ResponseDto>(cartDto.CartHeader.CouponCode, accessToken);
+                    if (coupon != null && coupon.IsSuccess)
+                    {
+                        var couponObj = JsonConvert.DeserializeObject<CouponDto>(Convert.ToString(coupon.Result));
+                        cartDto.CartHeader.DiscountTotal = couponObj.DiscountAmount;
+                    }
+                }
 
-                    foreach (var detail in cartDto.CartDetails)
+                foreach (var detail in cartDto.CartDetails)
                     {
                         cartDto.CartHeader.OrderTotal += (detail.Product.Price * detail.Count);
                     }
 
-                    //cartDto.CartHeader.OrderTotal -= cartDto.CartHeader.DiscountTotal;
+                    cartDto.CartHeader.OrderTotal -= cartDto.CartHeader.DiscountTotal;
                 }
                 return cartDto;
             }
